@@ -89,11 +89,11 @@ public class DocumentationPlugin implements Plugin<Project> {
         @Override
         public void execute(final Tar tar) {
             tar.setCompression(Compression.GZIP);
-            tar.setBaseName(tar.getProject().getName());
-            tar.setClassifier("docs-" + documentationTask.type.getBuilderName());
-            tar.setExtension("tar.gz");
+            tar.getArchiveBaseName().set(tar.getProject().getName());
+            tar.getArchiveClassifier().set("docs-" + documentationTask.type.getBuilderName());
+            tar.getArchiveExtension().set("tar.gz");
             tar.from(documentationTask);
-            tar.into(tar.getBaseName() + "-" + tar.getVersion() + "-" + tar.getClassifier());
+            tar.into(tar.getArchiveBaseName() + "-" + tar.getArchiveBaseName() + "-" + tar.getArchiveClassifier());
         }
     }
 }
