@@ -34,21 +34,21 @@ class PythonPluginTest extends Specification {
 
     def "can apply python plugin class"() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         then:
         project.plugins.apply(PythonPlugin)
     }
 
     def 'can apply python plugin resource'() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         then:
         project.plugins.apply('com.linkedin.python')
     }
 
     def 'can apply python plugin twice'() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         then:
         project.plugins.apply('com.linkedin.python')
         project.plugins.apply('com.linkedin.python')
@@ -56,13 +56,14 @@ class PythonPluginTest extends Specification {
 
     def 'applied plugin has configurations'() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         project.plugins.apply('com.linkedin.python')
         then:
-        for (c in [StandardTextValues.CONFIGURATION_DEFAULT.value,
-                   StandardTextValues.CONFIGURATION_PYTHON.value,
-                   StandardTextValues.CONFIGURATION_WHEEL.value,
-                   StandardTextValues.CONFIGURATION_VENV.value]) {
+        def configurations = [StandardTextValues.CONFIGURATION_DEFAULT.value,
+                              StandardTextValues.CONFIGURATION_PYTHON.value,
+                              StandardTextValues.CONFIGURATION_WHEEL.value,
+                              StandardTextValues.CONFIGURATION_VENV.value]
+        for (c in configurations) {
             assert project.configurations.getByName(c)
         }
         assert (project.configurations.getByName(StandardTextValues.CONFIGURATION_DEFAULT.value).getExtendsFrom()*.name
@@ -71,7 +72,7 @@ class PythonPluginTest extends Specification {
 
     def 'can apply java'() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         then:
         project.plugins.apply('java')
         project.plugins.apply(PythonPlugin)
@@ -79,7 +80,7 @@ class PythonPluginTest extends Specification {
 
     def 'can find python version'() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         project.plugins.apply('com.linkedin.python')
         def details = project.getExtensions().getByType(PythonExtension).getDetails()
 
@@ -98,7 +99,7 @@ class PythonPluginTest extends Specification {
         def projectDir = temporaryFolder.newFolder('projectDir')
 
         when:
-        def project = new ProjectBuilder().withName('project').withProjectDir(projectDir).build()
+        def project = ProjectBuilder.builder().withName('project').withProjectDir(projectDir).build()
         project.plugins.apply('com.linkedin.python')
 
         then:
@@ -109,7 +110,7 @@ class PythonPluginTest extends Specification {
 
     def 'product dependencies are installed after test dependencies'() {
         when:
-        def project = new ProjectBuilder().build()
+        def project = ProjectBuilder.builder().build()
         project.plugins.apply(PythonPlugin)
 
         then:
