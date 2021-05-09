@@ -64,7 +64,7 @@ abstract public class AbstractPythonMainSourceDefaultTask extends DefaultTask im
 
     @InputFiles
     public FileCollection getSourceFiles() {
-        ConfigurableFileTree componentFiles = getProject().fileTree(getComponent().srcDir);
+        ConfigurableFileTree componentFiles = getProject().fileTree(getPythonExtension().srcDir);
         componentFiles.exclude(standardExcludes());
         if (null != sources) {
             return sources.plus(componentFiles);
@@ -95,7 +95,7 @@ abstract public class AbstractPythonMainSourceDefaultTask extends DefaultTask im
     @Internal
     public PythonDetails getPythonDetails() {
         if (null == pythonDetails) {
-            pythonDetails = getComponent().getDetails();
+            pythonDetails = getPythonExtension().getDetails();
         }
         return pythonDetails;
     }
@@ -145,8 +145,8 @@ abstract public class AbstractPythonMainSourceDefaultTask extends DefaultTask im
         final TeeOutputContainer container = new TeeOutputContainer(stdOut, errOut);
 
         ExecResult result = externalExec.exec(execSpec -> {
-            execSpec.environment(getComponent().pythonEnvironment);
-            execSpec.environment(getComponent().pythonEnvironmentDistgradle);
+            execSpec.environment(getPythonExtension().pythonEnvironment);
+            execSpec.environment(getPythonExtension().pythonEnvironmentDistgradle);
             execSpec.commandLine(getPythonDetails().getVirtualEnvInterpreter());
             // arguments are passed to the python interpreter
             execSpec.args(arguments);

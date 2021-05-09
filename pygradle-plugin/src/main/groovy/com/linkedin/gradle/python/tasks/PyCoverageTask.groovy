@@ -55,7 +55,7 @@ class PyCoverageTask extends PyTestTask {
         // using subArgs as these must be added after py.test
         subArgs(
             '--cov',
-            project.file(component.srcDir).getAbsolutePath(),
+            project.file(pythonExtension.srcDir).getAbsolutePath(),
             '--cov-report=xml',
             '--cov-report=html',
             '--cov-report=term'

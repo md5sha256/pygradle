@@ -23,7 +23,7 @@ sourceSets {
         resources {
             srcDir file('src/integTest/resources')
         }
-        compileClasspath += sourceSets.main.output + configurations.testRuntime
+        compileClasspath += sourceSets.main.output + test.runtimeClasspath
         runtimeClasspath += output + compileClasspath
     }
 }

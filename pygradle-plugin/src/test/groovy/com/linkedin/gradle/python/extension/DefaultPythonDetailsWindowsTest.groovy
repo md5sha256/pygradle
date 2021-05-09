@@ -39,7 +39,7 @@ class DefaultPythonDetailsWindowsTest extends Specification {
 
     @Rule
     CustomTemporaryFolder temporaryFolder = new CustomTemporaryFolder()
-    def project = new ProjectBuilder().build()
+    def project = ProjectBuilder.builder().build()
     DefaultPythonDetails settings
 
     def setup() {

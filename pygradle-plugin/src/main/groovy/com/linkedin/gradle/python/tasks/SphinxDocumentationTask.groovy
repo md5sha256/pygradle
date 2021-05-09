@@ -30,7 +30,7 @@ class SphinxDocumentationTask extends AbstractPythonMainSourceDefaultTask {
 
     @InputFiles
     FileCollection getDocFiles() {
-        return getProject().fileTree(getComponent().docsDir)
+        return getProject().fileTree(getPythonExtension().docsDir)
     }
 
     @OutputDirectory
@@ -49,7 +49,7 @@ class SphinxDocumentationTask extends AbstractPythonMainSourceDefaultTask {
     void preExecution() {
         args(pythonDetails.virtualEnvironment.findExecutable('sphinx-build').absolutePath,
             '-b', type.builderName,
-            project.file(component.docsDir).getAbsolutePath(),
+            project.file(pythonExtension.docsDir).getAbsolutePath(),
             "${ getDocDir().getAbsolutePath() }")
     }
 

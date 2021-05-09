@@ -84,8 +84,8 @@ public class PythonContainerPlugin extends PythonBasePlugin {
 
             Tar tar = tasks.create(ApplicationContainer.TASK_PACKAGE_DEPLOYABLE, Tar.class);
             tar.setCompression(Compression.GZIP);
-            tar.setBaseName(project.getName());
-            tar.setExtension("tar.gz");
+            tar.getArchiveBaseName().set(project.getName());
+            tar.getArchiveExtension().set("tar.gz");
             tar.from(deployableExtension.getDeployableBuildDir());
             tar.dependsOn(assemble);
             project.getArtifacts().add(StandardTextValues.CONFIGURATION_DEFAULT.getValue(), tar);

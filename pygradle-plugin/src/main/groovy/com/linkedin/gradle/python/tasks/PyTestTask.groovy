@@ -40,7 +40,7 @@ class PyTestTask extends AbstractPythonTestSourceDefaultTask {
         // any arguments to pytest(-k, -s etc..) must go into subArgs to get appended after py.test
         args(pythonDetails.virtualEnvironment.findExecutable("py.test").absolutePath)
         if (!specificFileGiven) {
-            args(component.testDir)
+            args(pythonExtension.testDir)
         }
     }
 
